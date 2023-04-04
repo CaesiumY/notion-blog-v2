@@ -1,4 +1,5 @@
 import { getDatabaseItems } from "@/cms/notionClient";
+import HeroSection from "@/components/intro/HeroSection";
 import {
   parseDatabaseItems,
   ParsedDatabaseItemType,
@@ -13,7 +14,11 @@ interface HomeProps {
 const Home = ({ databaseItems }: HomeProps) => {
   console.log("databaseItems :>> ", databaseItems);
 
-  return <div>Home</div>;
+  return (
+    <div>
+      <HeroSection />
+    </div>
+  );
 };
 
 export default Home;
