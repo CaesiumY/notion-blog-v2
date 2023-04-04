@@ -1,4 +1,5 @@
 import { getDatabaseItems } from "@/cms/notionClient";
+import CardSection from "@/components/intro/CardSection";
 import HeroSection from "@/components/intro/HeroSection";
 import {
   parseDatabaseItems,
@@ -12,11 +13,10 @@ interface HomeProps {
 }
 
 const Home = ({ databaseItems }: HomeProps) => {
-  console.log("databaseItems :>> ", databaseItems);
-
   return (
     <div>
       <HeroSection />
+      <CardSection cardItems={databaseItems} />
     </div>
   );
 };
