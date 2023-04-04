@@ -1,7 +1,6 @@
 import { ParsedDatabaseItemType } from "@/utils/parseDatabaseItems";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import IconRenderer from "./IconRenderer";
 import TagList from "./tag/TagList";
 
@@ -21,19 +20,22 @@ const CardItem = ({ cardItem }: CardItemProps) => {
               src={cover}
               alt={title}
               layout="fill"
+              objectFit="cover"
               className="group-hover:scale-105 transition-transform"
             />
           </div>
 
           <div className="p-4 flex flex-col gap-4">
             <h4 className="font-bold text-2xl group-hover:text-blue-500 transition-colors flex flex-row items-center gap-1">
-              <IconRenderer icon={icon} />
+              <IconRenderer icon={icon} alt={title} />
               {title}
             </h4>
             {description ? (
               <p className="font-medium text-gray-600">{description}</p>
             ) : null}
-            <time className="font-medium text-gray-700">{published}</time>
+            <time className="font-light text-gray-700 text-sm">
+              {published}
+            </time>
           </div>
         </a>
       </Link>
