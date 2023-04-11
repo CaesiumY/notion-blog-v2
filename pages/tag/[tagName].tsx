@@ -1,4 +1,5 @@
 import { getDatabaseItems } from "@/cms/notionClient";
+import TagHeroSection from "@/components/tags/TagHeroSection";
 import { getAllTags } from "@/utils/getAllTags";
 import {
   ParsedDatabaseItemType,
@@ -9,12 +10,15 @@ import { ParsedUrlQuery } from "querystring";
 
 interface TagPageProps {
   databaseItems: ParsedDatabaseItemType[];
+  tagName: string;
 }
 
-const TagPage = ({ databaseItems }: TagPageProps) => {
-  console.log("databaseItems :>> ", databaseItems);
-
-  return <div>TagPage</div>;
+const TagPage = ({ databaseItems, tagName }: TagPageProps) => {
+  return (
+    <div>
+      <TagHeroSection title={`#${tagName}`} />
+    </div>
+  );
 };
 
 export default TagPage;
@@ -29,10 +33,12 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const { tagName } = params!;
 
+  const pascalTagName = tagName[0].toUpperCase() + tagName.slice(1);
+
   if (!process.env.DATABASE_ID) throw new Error("DATABASE_ID is not defined");
   const databaseItems = await getDatabaseItems(process.env.DATABASE_ID, {
     filter: {
-      tagName: tagName[0].toUpperCase() + tagName.slice(1),
+      tagName: pascalTagName,
     },
   });
 
@@ -41,6 +47,7 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       databaseItems: parsedDatabaseItems,
+      tagName: pascalTagName,
     },
   };
 };
