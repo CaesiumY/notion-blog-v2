@@ -9,8 +9,6 @@ interface DetailBlogPageProps {
 }
 
 const DetailBlogPage = ({ recordMap }: DetailBlogPageProps) => {
-  console.log("recordMap :>> ", recordMap);
-
   return (
     <div>
       <NotionPageRenderer recordMap={recordMap} />
