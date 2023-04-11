@@ -11,7 +11,7 @@ const TagItem = ({ tagItem }: TagItemProps) => {
 
   return (
     <li>
-      <Link href={`tag/${name.toLowerCase()}`}>
+      <Link href={`/tag/${name.toLowerCase()}`}>
         <a
           className="hover:underline hover:-translate-y-1 hover:shadow-md block transition-all px-2 py-1 rounded-full font-light text-gray-800 text-sm "
           style={{
