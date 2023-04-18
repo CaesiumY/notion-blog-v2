@@ -16,7 +16,11 @@ const Pagination = ({ totalPage }: PaginationProps) => {
     <div>
       <ul className="flex flex-row gap-2">
         <li>
-          <PaginationItem to={currentPage - 1} value="&lt;" />
+          <PaginationItem
+            to={currentPage - 1}
+            value="&lt;"
+            disabled={currentPage === 1}
+          />
         </li>
 
         {Array.from(
@@ -34,7 +38,11 @@ const Pagination = ({ totalPage }: PaginationProps) => {
         )}
 
         <li>
-          <PaginationItem to={currentPage + 1} value="&gt;" />
+          <PaginationItem
+            to={currentPage + 1}
+            value="&gt;"
+            disabled={currentPage === totalPage}
+          />
         </li>
       </ul>
     </div>
@@ -75,7 +83,7 @@ const PaginationItem = ({
       }}
     >
       <button
-        className={`px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-black ${
+        className={`px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-black disabled:text-gray-400 disabled:cursor-not-allowed ${
           active ? "bg-gray-100 text-black" : ""
         }`}
         disabled={disabled}
