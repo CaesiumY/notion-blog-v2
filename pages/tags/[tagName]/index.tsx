@@ -10,7 +10,7 @@ import {
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-interface TagPageProps {
+export interface TagPageProps {
   databaseItems: ParsedDatabaseItemType[];
   tagName: string;
   totalLength: number;

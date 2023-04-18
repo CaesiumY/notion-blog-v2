@@ -14,7 +14,7 @@ const Pagination = ({ totalPage }: PaginationProps) => {
 
   return (
     <div>
-      <ul className="flex flex-row gap-2">
+      <ul className="flex flex-row gap-2 justify-center items-center">
         <li>
           <PaginationItem
             to={currentPage - 1}
