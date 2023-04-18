@@ -83,8 +83,8 @@ const PaginationItem = ({
       }}
     >
       <button
-        className={`px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-black disabled:text-gray-400 disabled:cursor-not-allowed ${
-          active ? "bg-gray-100 text-black" : ""
+        className={`px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-black hover:font-semibold disabled:text-gray-400 disabled:cursor-not-allowed ${
+          active ? "bg-gray-100 text-black font-semibold" : "text-gray-500"
         }`}
         disabled={disabled}
       >

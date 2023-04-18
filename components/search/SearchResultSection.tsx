@@ -10,6 +10,7 @@ const SearchResultSection = () => {
   const { data, isLoading, error } = useSWR(
     `/api/getSearchFromNotion?query=${searchQuery}`,
     async (url) => {
+      if (!searchQuery) return;
       const response = await fetch(url);
 
       if (response.ok) {
@@ -21,7 +22,7 @@ const SearchResultSection = () => {
 
   return (
     <section>
-      <div className="w-4/5 max-w-5xl mx-auto my-16">
+      <div className="w-4/5 max-w-5xl mx-auto my-16 min-h-screen">
         {data ? <CardList cardItems={data} /> : null}
         {isLoading ? <LoadingIndicator /> : null}
         {error ? <ErrorIndicator error={error} /> : null}

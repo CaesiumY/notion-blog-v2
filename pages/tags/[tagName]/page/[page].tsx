@@ -1,11 +1,10 @@
-import React from "react";
-import TagPage, { TagPageProps } from "..";
-import { ParsedUrlQuery } from "querystring";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { getDatabaseItems } from "@/cms/notionClient";
-import { parseDatabaseItems } from "@/utils/parseDatabaseItems";
 import { ITEMS_PER_PAGE } from "@/const/const";
 import { getAllTags } from "@/utils/getAllTags";
+import { parseDatabaseItems } from "@/utils/parseDatabaseItems";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
+import TagPage, { TagPageProps } from "..";
 
 const TagWithPage = ({ databaseItems, tagName, totalLength }: TagPageProps) => {
   return (
@@ -52,6 +51,7 @@ export const getStaticProps: GetStaticProps<
       tagName: pascalTagName,
       totalLength: databaseItems.length,
     },
+    revalidate: 300,
   };
 };
 
