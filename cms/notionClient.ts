@@ -1,4 +1,8 @@
 import { Client } from "@notionhq/client";
+import {
+  PageObjectResponse,
+  PartialPageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 import { NotionAPI } from "notion-client";
 
 export const notionClient = new Client({
@@ -42,6 +46,22 @@ export const getDatabaseItems = async (
   });
 
   return response.results;
+};
+
+export const getSearchItems = async (query: string) => {
+  const response = await notionClient.search({
+    query,
+    filter: {
+      property: "object",
+      value: "page",
+    },
+    sort: {
+      direction: "descending",
+      timestamp: "last_edited_time",
+    },
+  });
+
+  return response.results as (PageObjectResponse | PartialPageObjectResponse)[];
 };
 
 export const unofficialNotionClient = new NotionAPI();

@@ -19,6 +19,7 @@ export const parseDatabaseItems = (
 ) => {
   const parsedItems = items.reduce<ParsedDatabaseItemType[]>((acc, item) => {
     if (!("properties" in item)) return acc;
+    if (item.parent.type !== "database_id") return acc;
 
     const { id, icon, cover } = item;
     const { 태그, 작성일, 설명, 이름 } = item.properties;
@@ -30,8 +31,7 @@ export const parseDatabaseItems = (
 
     const description =
       (설명.type === "rich_text" ? 설명.rich_text[0]?.plain_text : "") ?? "";
-    const title =
-      (이름.type === "title" ? 이름.title[0]?.plain_text : "") ?? "";
+    const title = 이름.type === "title" ? 이름.title[0]?.plain_text : "";
 
     const tags = 태그.type === "multi_select" ? 태그.multi_select : [];
 
