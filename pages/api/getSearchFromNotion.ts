@@ -5,7 +5,7 @@ import {
 } from "@/utils/parseDatabaseItems";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-interface GetSearchResponse {
+export interface GetSearchResponse {
   databaseItems: ParsedDatabaseItemType[];
 }
 
