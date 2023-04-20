@@ -64,18 +64,11 @@ const PaginationItem = ({
   disabled = false,
   active = false,
 }: PaginationItemProps) => {
-  const { pathname, query } = useRouter();
-  const paginationRoute = "/page/[page]";
-
-  const extendedPathname =
-    pathname.indexOf(paginationRoute) === -1
-      ? `${pathname.replace(/\/$/, "")}${paginationRoute}`
-      : pathname;
+  const { query } = useRouter();
 
   return (
     <Link
       href={{
-        pathname: extendedPathname,
         query: {
           ...query,
           page: to,
