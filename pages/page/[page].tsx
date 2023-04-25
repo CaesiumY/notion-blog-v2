@@ -4,6 +4,7 @@ import { getDatabaseItems } from "@/cms/notionClient";
 import { parseDatabaseItems } from "@/utils/parseDatabaseItems";
 import { ParsedUrlQuery } from "querystring";
 import { ITEMS_PER_PAGE } from "@/const/const";
+import { insertPreviewImage } from "@/utils/previewImage";
 
 const HomeWithPage = ({ databaseItems, totalLength }: HomeProps) => {
   return <Home databaseItems={databaseItems} totalLength={totalLength} />;
@@ -31,9 +32,13 @@ export const getStaticProps: GetStaticProps<
     )
   );
 
+  const parsedDatabaseItemsWithPreview = await insertPreviewImage(
+    parsedDatabaseItems
+  );
+
   return {
     props: {
-      databaseItems: parsedDatabaseItems,
+      databaseItems: parsedDatabaseItemsWithPreview,
       totalLength: databaseItems.length,
     },
     revalidate: 300,

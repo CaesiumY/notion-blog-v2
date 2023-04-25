@@ -3,6 +3,7 @@ import {
   PageObjectResponse,
   MultiSelectPropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
+import { MakePreviewImage } from "./previewImage";
 
 export interface ParsedDatabaseItemType {
   id: string;
@@ -12,6 +13,11 @@ export interface ParsedDatabaseItemType {
   published: string;
   description: string;
   title: string;
+  previewImage?: MakePreviewImage;
+  proxy: {
+    cover: string;
+    icon: string;
+  };
 }
 
 export const parseDatabaseItems = (
@@ -21,7 +27,7 @@ export const parseDatabaseItems = (
     if (!("properties" in item)) return acc;
     if (item.parent.type !== "database_id") return acc;
 
-    const { id, icon, cover } = item;
+    const { id, icon, cover, last_edited_time } = item;
     const { 태그, 작성일, 설명, 이름 } = item.properties;
 
     const parsedCover =
@@ -35,6 +41,9 @@ export const parseDatabaseItems = (
 
     const tags = 태그.type === "multi_select" ? 태그.multi_select : [];
 
+    const proxyCoverUrl = `/api/getImageFromNotion?type=cover&pageId=${id}&lastEditedTime=${last_edited_time}`;
+    const proxyIconUrl = `/api/getImageFromNotion?type=icon&pageId=${id}&lastEditedTime=${last_edited_time}`;
+
     const parsedResult: ParsedDatabaseItemType = {
       id,
       icon,
@@ -43,6 +52,10 @@ export const parseDatabaseItems = (
       description,
       title,
       tags,
+      proxy: {
+        cover: proxyCoverUrl,
+        icon: proxyIconUrl,
+      },
     };
 
     return [...acc, parsedResult];

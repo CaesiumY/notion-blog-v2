@@ -4,9 +4,10 @@ import Image from "next/image";
 interface IconRendererProps {
   icon: ParsedDatabaseItemType["icon"];
   alt: string;
+  proxyIconUrl?: string;
 }
 
-const IconRenderer = ({ icon, alt }: IconRendererProps) => {
+const IconRenderer = ({ icon, alt, proxyIconUrl }: IconRendererProps) => {
   if (!icon) return null;
 
   if (icon.type === "emoji") return <span>{icon.emoji}</span>;
@@ -15,7 +16,7 @@ const IconRenderer = ({ icon, alt }: IconRendererProps) => {
 
   return (
     <Image
-      src={iconUrl}
+      src={proxyIconUrl ?? iconUrl}
       alt={`${alt} icon`}
       width={28}
       height={28}
