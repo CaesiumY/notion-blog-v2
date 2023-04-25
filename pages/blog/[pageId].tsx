@@ -1,4 +1,5 @@
 import { getDatabaseItems, getPageContent } from "@/cms/notionClient";
+import Comments from "@/components/common/Comments";
 import NotionPageRenderer from "@/components/notion/NotionPageRenderer";
 import { insertPreviewImageToRecordMap } from "@/utils/previewImage";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -13,6 +14,7 @@ const DetailBlogPage = ({ recordMap }: DetailBlogPageProps) => {
   return (
     <div>
       <NotionPageRenderer recordMap={recordMap} />
+      <Comments />
     </div>
   );
 };
