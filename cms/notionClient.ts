@@ -64,10 +64,31 @@ export const getSearchItems = async (query: string) => {
   return response.results as (PageObjectResponse | PartialPageObjectResponse)[];
 };
 
+export const getPageItem = async (pageId: string) => {
+  const response = await notionClient.pages.retrieve({
+    page_id: pageId,
+  });
+
+  return response;
+};
+
 export const unofficialNotionClient = new NotionAPI();
 
 export const getPageContent = async (pageId: string) => {
-  const response = await unofficialNotionClient.getPage(pageId);
+  const recordMap = await unofficialNotionClient.getPage(pageId);
 
-  return response;
+  const filteredSignedUrl = Object.keys(recordMap.signed_urls).reduce<
+    typeof recordMap.signed_urls
+  >((acc, cur) => {
+    if (recordMap.signed_urls[cur].indexOf("expirationTimestamp") > -1)
+      return acc;
+
+    acc[cur] = recordMap.signed_urls[cur];
+
+    return acc;
+  }, {});
+
+  recordMap.signed_urls = filteredSignedUrl;
+
+  return recordMap;
 };
