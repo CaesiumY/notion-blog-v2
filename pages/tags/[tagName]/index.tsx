@@ -7,6 +7,7 @@ import {
   ParsedDatabaseItemType,
   parseDatabaseItems,
 } from "@/utils/parseDatabaseItems";
+import { insertPreviewImage } from "@/utils/previewImage";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
@@ -50,9 +51,13 @@ export const getStaticProps: GetStaticProps<
     databaseItems.slice(0, ITEMS_PER_PAGE)
   );
 
+  const parsedDatabaseItemsWithPreview = await insertPreviewImage(
+    parsedDatabaseItems
+  );
+
   return {
     props: {
-      databaseItems: parsedDatabaseItems,
+      databaseItems: parsedDatabaseItemsWithPreview,
       tagName: pascalTagName,
       totalLength: databaseItems.length,
     },

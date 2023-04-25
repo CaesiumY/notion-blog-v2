@@ -3,6 +3,7 @@ import {
   PageObjectResponse,
   MultiSelectPropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
+import { MakePreviewImage } from "./previewImage";
 
 export interface ParsedDatabaseItemType {
   id: string;
@@ -12,6 +13,7 @@ export interface ParsedDatabaseItemType {
   published: string;
   description: string;
   title: string;
+  previewImage?: MakePreviewImage;
 }
 
 export const parseDatabaseItems = (

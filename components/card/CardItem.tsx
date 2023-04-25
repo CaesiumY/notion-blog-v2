@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import IconRenderer from "./IconRenderer";
 import TagList from "./tag/TagList";
+import { DEFAULT_BLUR_BASE64 } from "@/const/const";
 
 interface CardItemProps {
   cardItem: ParsedDatabaseItemType;
 }
 
 const CardItem = ({ cardItem }: CardItemProps) => {
-  const { cover, description, icon, id, published, tags, title } = cardItem;
+  const { cover, description, icon, id, published, tags, title, previewImage } =
+    cardItem;
 
   return (
     <li className="rounded-2xl overflow-hidden shadow-lg group flex flex-col">
@@ -22,6 +24,8 @@ const CardItem = ({ cardItem }: CardItemProps) => {
               layout="fill"
               objectFit="cover"
               className="group-hover:scale-105 transition-transform"
+              placeholder="blur"
+              blurDataURL={previewImage?.dataURIBase64 ?? DEFAULT_BLUR_BASE64}
             />
           </div>
 
