@@ -1,5 +1,6 @@
 import { getDatabaseItems } from "@/cms/notionClient";
 import CardSection from "@/components/intro/CardSection";
+import PageHead from "@/components/layout/PageHead";
 import TagHeroSection from "@/components/tags/TagHeroSection";
 import { ITEMS_PER_PAGE } from "@/const/const";
 import { getAllTags } from "@/utils/getAllTags";
@@ -20,6 +21,7 @@ export interface TagPageProps {
 const TagPage = ({ databaseItems, tagName, totalLength }: TagPageProps) => {
   return (
     <div>
+      <PageHead title={`#${tagName}`} keywords={tagName} />
       <TagHeroSection title={`#${tagName}`} />
       <CardSection cardItems={databaseItems} totalLength={totalLength} />
     </div>

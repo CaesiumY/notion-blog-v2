@@ -1,4 +1,5 @@
 import { getDatabaseItems } from "@/cms/notionClient";
+import PageHead from "@/components/layout/PageHead";
 import TagContainer from "@/components/tags/TagContainer";
 import TagHeroSection from "@/components/tags/TagHeroSection";
 import { getAllTags } from "@/utils/getAllTags";
@@ -11,8 +12,11 @@ interface TagsIndexPageProps {
 }
 
 const TagsIndexPage = ({ tags }: TagsIndexPageProps) => {
+  const keywords = tags.map((tag) => tag.name).join(", ");
+
   return (
     <div className="h-[calc(100vh-72px-88px)]">
+      <PageHead title="All Tags" keywords={keywords} />
       <TagHeroSection />
       <TagContainer tags={tags} />
     </div>
