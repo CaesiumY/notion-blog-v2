@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
+import GA from "./GA";
 
 const DEFAULT_TITLE = "MN BLOG";
 const DEFAULT_DESCRIPTION = "Notion API Blog";
@@ -58,6 +59,8 @@ const PageHead = ({ title, description, image, keywords }: PageHeadProps) => {
       <meta name="twitter:description" content={pageDescription} />
       <meta name="twitter:image" content={pageImage} />
       <meta name="twitter:image:alt" content={pageTitle} />
+
+      <GA />
     </Head>
   );
 };
