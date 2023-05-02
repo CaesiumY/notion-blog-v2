@@ -1,5 +1,5 @@
 import { ParsedDatabaseItemType } from "@/utils/parseDatabaseItems";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 interface IconRendererProps {
   icon: ParsedDatabaseItemType["icon"];
@@ -21,7 +21,10 @@ const IconRenderer = ({ icon, alt, proxyIconUrl }: IconRendererProps) => {
       width={28}
       height={28}
       className="rounded-full"
-    />
+      style={{
+        maxWidth: "100%",
+        height: "auto"
+      }} />
   );
 };
 

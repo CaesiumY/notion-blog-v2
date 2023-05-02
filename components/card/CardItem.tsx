@@ -1,5 +1,5 @@
 import { ParsedDatabaseItemType } from "@/utils/parseDatabaseItems";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from "next/link";
 import IconRenderer from "./IconRenderer";
 import TagList from "./tag/TagList";
@@ -21,11 +21,14 @@ const CardItem = ({ cardItem }: CardItemProps) => {
             <Image
               src={proxy.cover}
               alt={title}
-              layout="fill"
-              objectFit="cover"
               className="group-hover:scale-105 transition-transform"
               placeholder="blur"
               blurDataURL={previewImage?.dataURIBase64 ?? DEFAULT_BLUR_BASE64}
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "cover",
+              }}
             />
           </div>
 
