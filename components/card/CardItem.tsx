@@ -16,8 +16,7 @@ const CardItem = ({ cardItem }: CardItemProps) => {
   return (
     <li className="rounded-2xl overflow-hidden shadow-lg group flex flex-col">
       <Link href={`/blog/${id}`} className="flex-grow">
-
-        <div className="relative aspect-[1.3/1]">
+        <div className="relative aspect-[1.3/1] overflow-hidden">
           <Image
             src={proxy.cover}
             alt={title}
@@ -39,11 +38,8 @@ const CardItem = ({ cardItem }: CardItemProps) => {
           {description ? (
             <p className="font-medium text-gray-600">{description}</p>
           ) : null}
-          <time className="font-light text-gray-700 text-sm">
-            {published}
-          </time>
+          <time className="font-light text-gray-700 text-sm">{published}</time>
         </div>
-
       </Link>
       {tags.length > 0 ? <TagList tags={tags} /> : null}
     </li>
