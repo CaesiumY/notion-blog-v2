@@ -6,12 +6,13 @@ import { ExtendedRecordMap } from "notion-types";
 
 interface AboutPageProps {
   recordMap: ExtendedRecordMap;
+  ogImage: string;
 }
 
-const AboutPage = ({ recordMap }: AboutPageProps) => {
+const AboutPage = ({ recordMap, ogImage }: AboutPageProps) => {
   return (
     <div>
-      <PageHead title="About" />
+      <PageHead title="About" image={ogImage} />
       <NotionPageRenderer recordMap={recordMap} />
     </div>
   );
@@ -26,9 +27,12 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
 
   const recordMap = await getPageContent(profileId);
 
+  const cover = `/api/getImageFromNotion?type=cover&pageId=${profileId}`;
+
   return {
     props: {
       recordMap,
+      ogImage: cover,
     },
     revalidate: 300,
   };
