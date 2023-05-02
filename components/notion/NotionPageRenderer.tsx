@@ -3,7 +3,7 @@ import { NotionRenderer } from "react-notion-x";
 import { ExtendedRecordMap } from "notion-types";
 import dynamic from "next/dynamic";
 import nextLink from "next/link";
-import nextImage from "next/image";
+import nextImage from "next/legacy/image";
 import TagItem from "../card/tag/TagItem";
 import { ParsedDatabaseItemType } from "@/utils/parseDatabaseItems";
 

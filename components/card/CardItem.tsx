@@ -1,5 +1,5 @@
 import { ParsedDatabaseItemType } from "@/utils/parseDatabaseItems";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import IconRenderer from "./IconRenderer";
 import TagList from "./tag/TagList";
