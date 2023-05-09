@@ -7,6 +7,7 @@ import { NotionAPI } from "notion-client";
 
 export const notionClient = new Client({
   auth: process.env.NOTION_TOKEN,
+  fetch,
 });
 
 interface DatabaseQueryOption {

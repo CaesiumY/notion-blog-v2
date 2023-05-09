@@ -25,3 +25,4 @@ const RootLayout = ({ children }: PropsWithChildren) => {
 export default RootLayout;
 
 export const metadata = DEFAULT_METADATA;
+export const revalidate = 600;

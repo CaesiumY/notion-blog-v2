@@ -26,3 +26,5 @@ export const generateMetadata = ({
     title: query ? `${query} - Search Results` : "Search",
   };
 };
+
+export const revalidate = false;
