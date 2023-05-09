@@ -1,20 +1,7 @@
-// pages/api/og.tsx
-import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
+import { ImageResponse } from "next/server";
 
-export const config = {
-  runtime: "experimental-edge",
-};
-
-const handler = async (req: NextRequest) => {
+export const makeOgImage = async (title: string = "Notion Devlog") => {
   try {
-    const { searchParams } = new URL(req.url);
-
-    const hasTitle = searchParams.has("title");
-    const title = hasTitle
-      ? searchParams.get("title")?.slice(0, 100)
-      : "Notion Devlog";
-
     return new ImageResponse(
       (
         <div
@@ -65,7 +52,7 @@ const handler = async (req: NextRequest) => {
           {
             name: "Pretendard Black",
             data: await fetch(
-              new URL("../../assets/PretendardStd-Black.woff", import.meta.url)
+              new URL("../assets/PretendardStd-Black.woff", import.meta.url)
             ).then((res) => res.arrayBuffer()),
           },
         ],
@@ -78,5 +65,3 @@ const handler = async (req: NextRequest) => {
     });
   }
 };
-
-export default handler;
