@@ -1,10 +1,10 @@
 "use client";
 
-import { GetSearchResponse } from "@/pages/api/getSearchFromNotion";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import CardList from "../card/CardList";
 import LoadingSpinner from "../common/LoadingSpinner";
+import { GetSearchResponse } from "@/app/api/getSearchFromNotion/route";
 
 const SearchResultSection = () => {
   const searchParams = useSearchParams();

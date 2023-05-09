@@ -3,17 +3,16 @@ import {
   ParsedDatabaseItemType,
   parseDatabaseItems,
 } from "@/utils/parseDatabaseItems";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 export interface GetSearchResponse {
   databaseItems: ParsedDatabaseItemType[];
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<GetSearchResponse>
-) {
-  const { query } = req.query;
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+
+  const query = searchParams.get("query");
 
   if (!query) throw new Error("query is required");
 
@@ -23,5 +22,5 @@ export default async function handler(
 
   const parsedSearchItems = parseDatabaseItems(searchItems);
 
-  res.status(200).json({ databaseItems: parsedSearchItems });
+  return NextResponse.json({ databaseItems: parsedSearchItems });
 }

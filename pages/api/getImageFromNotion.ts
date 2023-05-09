@@ -1,5 +1,4 @@
 import { getPageItem } from "@/cms/notionClient";
-import { parseDatabaseItems } from "@/utils/parseDatabaseItems";
 import got from "got";
 import type { NextApiRequest, NextApiResponse } from "next";
 
