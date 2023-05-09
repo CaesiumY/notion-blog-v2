@@ -2,6 +2,7 @@ import { getDatabaseItems, getPageContent } from "@/cms/notionClient";
 import Comments from "@/components/common/Comments";
 import NotionPageRenderer from "@/components/notion/NotionPageRenderer";
 import { insertPreviewImageToRecordMap } from "@/utils/previewImage";
+import { Metadata } from "next";
 import { ExtendedRecordMap } from "notion-types";
 import { getPageProperty, getPageTitle } from "notion-utils";
 
@@ -24,12 +25,6 @@ export const generateStaticParams = async (): Promise<
 
 interface DetailBlogPageContent {
   recordMap: ExtendedRecordMap;
-  seo: {
-    title: string;
-    description: string;
-    keywords: string;
-    ogImage: string;
-  };
 }
 
 const getDetailBlogPageContent = async (
@@ -38,6 +33,36 @@ const getDetailBlogPageContent = async (
   const recordMap = await getPageContent(pageId);
 
   const previewImage = await insertPreviewImageToRecordMap(recordMap);
+
+  return {
+    recordMap: {
+      ...recordMap,
+      preview_images: previewImage,
+    },
+  };
+};
+
+interface DetailBlogPageProps {
+  params: DetailBlogPageParams;
+}
+
+const DetailBlogPage = async ({ params }: DetailBlogPageProps) => {
+  const { recordMap } = await getDetailBlogPageContent(params.pageId);
+
+  return (
+    <div>
+      <NotionPageRenderer recordMap={recordMap} />
+      <Comments />
+    </div>
+  );
+};
+
+export default DetailBlogPage;
+
+export const generateMetadata = async ({
+  params: { pageId },
+}: DetailBlogPageProps): Promise<Metadata> => {
+  const recordMap = await getPageContent(pageId);
 
   const propertyValue = Object.values(recordMap.block)[0].value;
 
@@ -51,38 +76,11 @@ const getDetailBlogPageContent = async (
   const cover = `/api/getImageFromNotion?type=cover&pageId=${pageId}`;
 
   return {
-    recordMap: {
-      ...recordMap,
-      preview_images: previewImage,
-    },
-    seo: {
-      title,
-      description,
-      keywords,
-      ogImage: cover,
+    title,
+    description,
+    keywords,
+    openGraph: {
+      images: [cover],
     },
   };
 };
-
-interface DetailBlogPageProps {
-  params: DetailBlogPageParams;
-}
-
-const DetailBlogPage = async ({ params }: DetailBlogPageProps) => {
-  const { recordMap, seo } = await getDetailBlogPageContent(params.pageId);
-
-  return (
-    <div>
-      {/* <PageHead
-        title={title}
-        description={description}
-        keywords={keywords}
-        image={ogImage}
-      /> */}
-      <NotionPageRenderer recordMap={recordMap} />
-      <Comments />
-    </div>
-  );
-};
-
-export default DetailBlogPage;

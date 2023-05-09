@@ -1,10 +1,10 @@
 import { getPageContent } from "@/cms/notionClient";
 import NotionPageRenderer from "@/components/notion/NotionPageRenderer";
+import { Metadata } from "next";
 import { ExtendedRecordMap } from "notion-types";
 
 interface AboutPageContent {
   recordMap: ExtendedRecordMap;
-  ogImage: string;
 }
 
 const getAboutPageContent = async (): Promise<AboutPageContent> => {
@@ -14,23 +14,32 @@ const getAboutPageContent = async (): Promise<AboutPageContent> => {
 
   const recordMap = await getPageContent(profileId);
 
-  const cover = `/api/getImageFromNotion?type=cover&pageId=${profileId}`;
-
   return {
     recordMap,
-    ogImage: cover,
   };
 };
 
 const AboutPage = async () => {
-  const { ogImage, recordMap } = await getAboutPageContent();
+  const { recordMap } = await getAboutPageContent();
 
   return (
     <div>
-      {/* <PageHead title="About" image={ogImage} /> */}
       <NotionPageRenderer recordMap={recordMap} />
     </div>
   );
 };
 
 export default AboutPage;
+
+export const generateMetadata = (): Metadata => {
+  const profileId = process.env.PROFILE_ID;
+
+  const cover = `/api/getImageFromNotion?type=cover&pageId=${profileId}`;
+
+  return {
+    title: "About",
+    openGraph: {
+      images: [cover],
+    },
+  };
+};

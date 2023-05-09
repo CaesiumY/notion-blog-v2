@@ -26,10 +26,10 @@ const PageHead = ({ title, description, image, keywords }: PageHeadProps) => {
   const pageKeywords = keywords
     ? `${keywords}, ${DEFAULT_KEYWORDS}`
     : DEFAULT_KEYWORDS;
-  const pageImage = `${process.env.SITE_URL ?? DEFAULT_URL}${
+  const pageImage = `${process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_URL}${
     image ?? DEFAULT_IMAGE
   }`;
-  const pageUrl = `${process.env.SITE_URL ?? DEFAULT_URL}${asPath}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_URL}${asPath}`;
 
   return (
     <Head>

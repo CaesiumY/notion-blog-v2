@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import { DEFAULT_METADATA } from "@/const/headConst";
 
 import "react-notion-x/src/styles.css";
 import "prismjs/themes/prism-tomorrow.css";
@@ -22,3 +23,5 @@ const RootLayout = ({ children }: PropsWithChildren) => {
 };
 
 export default RootLayout;
+
+export const metadata = DEFAULT_METADATA;

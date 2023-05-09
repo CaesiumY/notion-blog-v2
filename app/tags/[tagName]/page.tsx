@@ -1,6 +1,5 @@
 import { getDatabaseItems } from "@/cms/notionClient";
 import CardSection from "@/components/intro/CardSection";
-import PageHead from "@/components/layout/PageHead";
 import TagHeroSection from "@/components/tags/TagHeroSection";
 import { ITEMS_PER_PAGE } from "@/const/const";
 import { getAllTags } from "@/utils/getAllTags";
@@ -9,6 +8,7 @@ import {
   parseDatabaseItems,
 } from "@/utils/parseDatabaseItems";
 import { insertPreviewImage } from "@/utils/previewImage";
+import { Metadata } from "next";
 
 interface TagPageParams {
   tagName: string;
@@ -68,7 +68,6 @@ const TagPage = async ({ params: { tagName } }: TagPageProps) => {
 
   return (
     <div>
-      {/* <PageHead title={`#${tagName}`} keywords={tagName} /> */}
       <TagHeroSection title={`#${tagName}`} />
       <CardSection cardItems={databaseItems} totalLength={totalLength} />
     </div>
@@ -76,3 +75,12 @@ const TagPage = async ({ params: { tagName } }: TagPageProps) => {
 };
 
 export default TagPage;
+
+export const generateMetadata = async ({
+  params: { tagName },
+}: TagPageProps): Promise<Metadata> => {
+  return {
+    title: `#${tagName}`,
+    keywords: [tagName],
+  };
+};
