@@ -1,12 +1,16 @@
+"use client";
+
 import { GetSearchResponse } from "@/pages/api/getSearchFromNotion";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import CardList from "../card/CardList";
 import LoadingSpinner from "../common/LoadingSpinner";
 
 const SearchResultSection = () => {
-  const { query } = useRouter();
-  const searchQuery = query.query?.toString();
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams?.get("query");
+
   const { data, isLoading, error } = useSWR(
     `/api/getSearchFromNotion?query=${searchQuery}`,
     async (url) => {

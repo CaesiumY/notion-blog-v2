@@ -1,12 +1,15 @@
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import PageHead from "../layout/PageHead";
 
 const SearchInputSection = () => {
   const [value, setValue] = useState("");
-  const { push, query } = useRouter();
-  const searchQuery = query.query?.toString();
+  const { push } = useRouter();
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams?.get("query");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +26,6 @@ const SearchInputSection = () => {
 
   return (
     <>
-      <PageHead title={`${value}에 대한 검색 결과`} />
       <section className="bg-black">
         <div className="w-4/5 max-w-5xl mx-auto py-16">
           <form className="relative" onSubmit={onSubmit}>
