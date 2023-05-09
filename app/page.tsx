@@ -7,26 +7,13 @@ import {
   ParsedDatabaseItemType,
 } from "@/utils/parseDatabaseItems";
 import { insertPreviewImage } from "@/utils/previewImage";
-import { GetStaticProps } from "next";
-import React from "react";
 
-export interface HomeProps {
+export interface DatabaseItems {
   databaseItems: ParsedDatabaseItemType[];
   totalLength: number;
 }
 
-const Home = ({ databaseItems, totalLength }: HomeProps) => {
-  return (
-    <div>
-      <HeroSection />
-      <CardSection cardItems={databaseItems} totalLength={totalLength} />
-    </div>
-  );
-};
-
-export default Home;
-
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+const getFirstDatabaseItems = async (): Promise<DatabaseItems> => {
   if (!process.env.DATABASE_ID) throw new Error("DATABASE_ID is not defined");
   const databaseItems = await getDatabaseItems(process.env.DATABASE_ID);
 
@@ -39,10 +26,20 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   );
 
   return {
-    props: {
-      databaseItems: parsedDatabaseItemsWithPreview,
-      totalLength: databaseItems.length,
-    },
-    revalidate: 300,
+    databaseItems: parsedDatabaseItemsWithPreview,
+    totalLength: databaseItems.length,
   };
 };
+
+const Home = async () => {
+  const { databaseItems, totalLength } = await getFirstDatabaseItems();
+
+  return (
+    <div>
+      <HeroSection />
+      <CardSection cardItems={databaseItems} totalLength={totalLength} />
+    </div>
+  );
+};
+
+export default Home;

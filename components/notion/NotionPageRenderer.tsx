@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { NotionRenderer } from "react-notion-x";
 import { ExtendedRecordMap } from "notion-types";

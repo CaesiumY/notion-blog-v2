@@ -1,6 +1,8 @@
+"use client";
+
 import { PAGINATION_RANGE } from "@/const/const";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useParams, usePathname } from "next/navigation";
 import React from "react";
 
 interface PaginationProps {
@@ -8,9 +10,9 @@ interface PaginationProps {
 }
 
 const Pagination = ({ totalPage }: PaginationProps) => {
-  const { query } = useRouter();
+  const params = useParams();
 
-  const currentPage = Number(query.page) || 1;
+  const currentPage = Number(params?.page) || 1;
 
   return (
     <div>
@@ -64,24 +66,15 @@ const PaginationItem = ({
   disabled = false,
   active = false,
 }: PaginationItemProps) => {
-  const { pathname, query } = useRouter();
-  const paginationRoute = "/page/[page]";
+  const pathname = usePathname();
+  const params = useParams();
 
-  const extendedPathname =
-    pathname.indexOf(paginationRoute) === -1
-      ? `${pathname.replace(/\/$/, "")}${paginationRoute}`
-      : pathname;
+  const extendedPathname = params?.page
+    ? pathname!.replace(/\/page\/(\d)/, `/page/${to}`)
+    : `${pathname?.endsWith("/") ? pathname : pathname + "/"}page/${to}`;
 
   return (
-    <Link
-      href={{
-        pathname: extendedPathname,
-        query: {
-          ...query,
-          page: to,
-        },
-      }}
-    >
+    <Link href={extendedPathname}>
       <button
         className={`px-4 py-2 rounded-lg hover:bg-gray-100 hover:text-black hover:font-semibold disabled:text-gray-400 disabled:cursor-not-allowed ${
           active ? "bg-gray-100 text-black font-semibold" : "text-gray-500"
