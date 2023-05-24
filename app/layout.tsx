@@ -1,18 +1,20 @@
-import React, { PropsWithChildren } from "react";
 import { DEFAULT_METADATA } from "@/const/headConst";
+import { PropsWithChildren } from "react";
 
-import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
-import "katex/dist/katex.min.css";
-import "pretendard/dist/web/variable/pretendardvariable.css";
+import Footer from "@/components/layout/Footer";
+import GA from "@/components/layout/GA";
+import Header from "@/components/layout/Header";
 import "@/styles/globals.css";
 import "@/styles/notionStyle.scss";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import "katex/dist/katex.min.css";
+import "pretendard/dist/web/variable/pretendardvariable.css";
+import "prismjs/themes/prism-tomorrow.css";
+import "react-notion-x/src/styles.css";
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
+      <GA />
       <body>
         <Header />
         <main>{children}</main>
